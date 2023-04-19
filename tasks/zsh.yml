@@ -1,0 +1,11 @@
+- name: Install ZSH
+  become: true
+  ansible.builtin.package:
+    name: zsh
+    state: present
+  changed_when: false
+  tags: &tags_for_zsh_tasks ['install', 'productivity', 'dotfiles', 'zsh']
+
+- name: Change shell to zsh for current user
+  become: true
+  ansible.builtin.shell: "{{ lookup('pipe', 'which zsh') }}"

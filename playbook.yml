@@ -1,0 +1,15 @@
+- hosts: localhost
+  vars:
+    source_key: "./.ssh/id_rsa"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+  tasks:
+    - name: Update and upgrade packages
+      become: true
+      when: "ansible_pkg_mgr != 'apt'"
+      ansible.builtin.package:
+        name: "*"
+        state: latest
+        update_cache: yes
+    - include: tasks/ssh.yml
+    - include: tasks/zsh.yml
+    - include: tasks/install.yml

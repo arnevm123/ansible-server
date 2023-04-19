@@ -1,0 +1,10 @@
+- name: Install packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - tmux
+      - foot
+  tags:
+    - install
+    - productivity
+
